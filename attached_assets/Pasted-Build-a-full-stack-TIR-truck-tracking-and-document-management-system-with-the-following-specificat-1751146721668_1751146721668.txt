@@ -1,0 +1,61 @@
+Build a full-stack TIR (truck) tracking and document management system with the following specifications:
+
+FRONTEND:
+- Create a clean and responsive admin panel using React and Tailwind CSS or Bootstrap. It must be fully mobile- and desktop-compatible.
+- The admin panel must include:
+  - Create TIR profile (only phone number is required; plate, trailer plate, and location are optional).
+  - Upload documents (PDF or image) with an optional category (T1, CMR, Invoice, Doctor Paper, Turkish Invoice). If no category is selected, document must go into "Other Documents".
+  - Edit or delete any field or document.
+  - Show "last updated" time (accurate to the second) on each TIR profile.
+  - Create shareable read-only links per TIR profile.
+  - Delete entire TIR (TRIP) profiles with a “Delete TRIP Profile” button, removing all data and associated documents from the database and Cloudinary.
+
+- Add a main dashboard (home page) listing all existing TIRs (truck profiles).
+  - Each TIR card must display basic info (phone, plate if exists, last updated).
+  - Next to each TIR, include a “Share Profile” button that generates a read-only link to that specific TIR profile.
+  - This list page must also be shareable via its own public link, listing all current TIRs (with limited fields and no edit rights).
+  - Admin can deactivate or expire this list link at any time.
+
+BACKEND:
+- Use Express.js and Node.js to build the backend API.
+- Use MongoDB Atlas (Free Tier) as the database.
+  - Each TIR document includes: phone (required), plate, trailer_plate, location (optional), last_updated, list of documents, and shareable links.
+  - Each document includes: file type (optional), Cloudinary URL, public_id, and upload timestamp.
+- Use Cloudinary (Free Tier) to store uploaded documents (PDF or image). Store only the file URL and public_id in the database.
+
+DOCUMENT CATEGORY:
+- If a document type is selected (T1, CMR, etc.), display it in its category.
+- If type is not selected, document must go to “Other Documents” by default.
+
+SHAREABLE LINKS:
+- For each TIR profile, allow generation of a read-only link that:
+  - Shows only that TIR’s data (not others).
+  - Is responsive, clean, and mobile friendly.
+  - Displays last updated time and documents grouped by type.
+  - Cannot be edited or changed by link visitor.
+  - Link can be activated/deactivated or set with expiration time by admin.
+
+- Also allow creating a public dashboard link that lists all TIR profiles (read-only, minimal info: phone, location, last_updated).
+  - Only TIRs currently in the system must be visible.
+  - Link can be turned on/off by admin or set to expire.
+
+DELETION & CONTROL:
+- “Delete TRIP Profile” must fully remove:
+  - MongoDB document.
+  - All related documents from Cloudinary (using stored public_id).
+  - Any active shareable links.
+- Admin can also delete or update individual fields or files manually.
+
+SECURITY:
+- Only admin can create/edit/delete data.
+- All shared links are read-only and can only access the specific TIR or TIR list assigned.
+- Visitors to shared links cannot access any other TIR data or the admin interface.
+
+TOOLS:
+- Use MongoDB Atlas (free) and Cloudinary (free).
+- Deploy everything on Replit.
+- All design must be clean, intuitive, and production-ready.
+
+Language: Turkısh. Project name: GMİ TIR TAKİP..
+
+Only give me a working, clean, and deployed project on Replit that I can use immediately.
