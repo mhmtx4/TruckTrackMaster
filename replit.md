@@ -10,7 +10,7 @@ The application follows a monorepo structure with clear separation between clien
 
 - **Frontend**: React with TypeScript, using Vite for build tooling
 - **Backend**: Express.js with TypeScript, RESTful API design
-- **Database**: PostgreSQL with Drizzle ORM (configured but using in-memory storage currently)
+- **Database**: MongoDB Atlas with Mongoose ODM for persistent storage
 - **File Storage**: Cloudinary for document uploads
 - **Styling**: Tailwind CSS with shadcn/ui component library
 - **State Management**: TanStack Query for server state management
@@ -77,7 +77,7 @@ The application follows a monorepo structure with clear separation between clien
 - Backend compiled to `dist/index.js` as ESM module
 
 ### Environment Variables
-- `DATABASE_URL`: PostgreSQL connection string
+- `MONGODB_URI`: MongoDB Atlas connection string
 - `CLOUDINARY_*`: Cloudinary configuration (cloud_name, api_key, api_secret)
 
 ### Production Considerations

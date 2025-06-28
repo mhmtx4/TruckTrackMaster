@@ -6,11 +6,19 @@ import { nanoid } from "nanoid";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 
+// Helper to ensure storage is ready
+function ensureStorage() {
+  if (!storage) {
+    throw new Error("Storage not initialized");
+  }
+  return storage;
+}
+
 // Configure Cloudinary
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || process.env.CLOUDINARY_NAME || "demo",
-  api_key: process.env.CLOUDINARY_API_KEY || process.env.API_KEY || "demo",
-  api_secret: process.env.CLOUDINARY_API_SECRET || process.env.SECRET_KEY || "demo",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // Configure multer for file uploads

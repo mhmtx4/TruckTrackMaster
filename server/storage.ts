@@ -1,5 +1,7 @@
 import { Tir, InsertTir, Document, InsertDocument, ShareLink, InsertShareLink, TirWithDocuments, DocumentsByType } from "@shared/schema";
 import { nanoid } from "nanoid";
+import { MongoStorage } from "./mongo-storage";
+import { connectDatabase } from "./database";
 
 export interface IStorage {
   // TIR operations
@@ -208,4 +210,23 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// Initialize storage with MongoDB
+async function createStorage(): Promise<IStorage> {
+  try {
+    await connectDatabase();
+    console.log('Using MongoDB storage');
+    return new MongoStorage();
+  } catch (error) {
+    console.error('MongoDB connection failed, falling back to memory storage:', error);
+    return new MemStorage();
+  }
+}
+
+export let storage: IStorage = new MemStorage(); // Default to memory storage
+
+// Initialize storage
+createStorage().then(storageInstance => {
+  storage = storageInstance;
+}).catch(error => {
+  console.error('Storage initialization failed:', error);
+});
