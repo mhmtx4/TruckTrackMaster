@@ -325,13 +325,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const tirs = await storage.getAllTirs();
-      const publicTirs = tirs.map(tir => ({
-        id: tir.id,
-        phone: tir.phone,
-        plate: tir.plate,
-        location: tir.location,
-        lastUpdated: tir.lastUpdated,
-      }));
+      const tirShareLinks = await storage.getShareLinksByType("tir");
+      
+      const publicTirs = await Promise.all(
+        tirs.map(async (tir) => {
+          const documents = await storage.getDocumentsByTirId(tir.id);
+          const shareLink = tirShareLinks.find(link => link.tirId === tir.id && link.active);
+          
+          return {
+            id: tir.id,
+            phone: tir.phone,
+            plate: tir.plate,
+            location: tir.location,
+            lastUpdated: tir.lastUpdated,
+            documentCount: documents.length,
+            shareToken: shareLink?.token, // Include share token if available
+          };
+        })
+      );
 
       // Record access
       await storage.recordAccess(req.params.token);

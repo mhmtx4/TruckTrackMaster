@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute } from "wouter";
-import { Truck, MapPin, Phone, Calendar } from "lucide-react";
+import { Truck, MapPin, Phone, Calendar, FileText, Eye } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 
@@ -12,6 +13,8 @@ type PublicTir = {
   plate?: string;
   location?: string;
   lastUpdated: string;
+  documentCount?: number;
+  shareToken?: string;
 };
 
 export default function PublicList() {
@@ -126,15 +129,41 @@ export default function PublicList() {
                         {tir.location || "Lokasyon belirtilmemiş"}
                       </span>
                     </div>
+                    <div className="flex items-center text-sm">
+                      <FileText className="h-4 w-4 text-slate-400 mr-2" />
+                      <span className="text-slate-600">
+                        {tir.documentCount || 0} belge
+                      </span>
+                    </div>
                   </div>
 
                   <div className="pt-4 border-t border-slate-100">
-                    <div className="flex items-center text-xs text-slate-500">
-                      <Calendar className="h-3 w-3 mr-1" />
-                      <span>Son güncelleme:</span>
-                    </div>
-                    <div className="font-medium text-slate-700 text-sm mt-1">
-                      {format(new Date(tir.lastUpdated), "dd.MM.yyyy, HH:mm", { locale: tr })}
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center text-xs text-slate-500">
+                          <Calendar className="h-3 w-3 mr-1" />
+                          <span>Son güncelleme:</span>
+                        </div>
+                        <div className="font-medium text-slate-700 text-sm mt-1">
+                          {format(new Date(tir.lastUpdated), "dd.MM.yyyy, HH:mm", { locale: tr })}
+                        </div>
+                      </div>
+                      {(tir.documentCount || 0) > 0 && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            if (tir.shareToken) {
+                              window.open(`/share/tir/${tir.shareToken}`, '_blank');
+                            } else {
+                              alert("Bu TIR'ın belgeleri için paylaşım linki henüz oluşturulmamış.");
+                            }
+                          }}
+                        >
+                          <Eye className="h-3 w-3 mr-1" />
+                          Belgeler
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </CardContent>
