@@ -11,6 +11,7 @@ import PublicList from "@/pages/public-list";
 import Login from "@/pages/login";
 import NotFound from "@/pages/not-found";
 
+
 function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
   const { isAuthenticated } = useAuth();
   

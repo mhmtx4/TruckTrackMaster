@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
@@ -6,7 +8,7 @@ import { nanoid } from "nanoid";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 
-// Helper to ensure storage is ready
+// Helper to ensure storage is readyz
 function ensureStorage() {
   if (!storage) {
     throw new Error("Storage not initialized");
@@ -16,9 +18,9 @@ function ensureStorage() {
 
 // Configure Cloudinary
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: "dcpfymulz",
+  api_key: "992117663959846",
+  api_secret: "Ahqr9myXUnEawqkH6WcjIMLV6Q0",
 });
 
 // Configure multer for file uploads

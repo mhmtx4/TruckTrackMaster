@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import { Tir, Document, ShareLink } from '@shared/schema';
+import dotenv from "dotenv";
+dotenv.config();
 
 // TIR Schema
 const tirSchema = new mongoose.Schema({
@@ -50,11 +52,7 @@ export const ShareLinkModel = mongoose.model('ShareLink', shareLinkSchema);
 // Database connection
 export async function connectDatabase() {
   try {
-    const mongoUri = process.env.MONGODB_URI || process.env.DATABASE_URL;
-    if (!mongoUri) {
-      throw new Error('MongoDB URI not found in environment variables');
-    }
-    
+    const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://mxhmet:meh332211@truckdb.ji3rbus.mongodb.net/?retryWrites=true&w=majority&appName=truckdb';
     await mongoose.connect(mongoUri);
     console.log('Connected to MongoDB Atlas');
   } catch (error) {
