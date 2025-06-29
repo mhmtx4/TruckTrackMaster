@@ -35,9 +35,16 @@ export default defineConfig({
     },
   },
   // replace "kullaniciadi" and "repoadi" with your GitHub info
+import { defineConfig } from 'vite'
+
 export default defineConfig({
-  base: './',  // ya da "/" yerine "./" deneyebilirsin
-  // diğer ayarlar
-});
+  base: './',
+  server: {
+    host: '0.0.0.0',
+    port: Number(process.env.PORT) || 3000
+  },
+  // diğer configler
+})
+
 
 });
