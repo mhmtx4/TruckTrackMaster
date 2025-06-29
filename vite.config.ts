@@ -35,8 +35,5 @@ export default defineConfig({
     },
   },
   // replace "kullaniciadi" and "repoadi" with your GitHub info
-export default defineConfig({
-  base: '/TruckTrackMaster/',
-  plugins: [react()],
-})
+
 });
